@@ -7,9 +7,11 @@ module.exports = function(app) {
     res.send("dfjdhfjdfhjf");
   });
   app.post('/get-file-size', upload.single('avatar'), function (req, res, next) {
-    //res.send({ "size": req.file.size });
-    res.send({ "size": upload.file.size });
-    // req.file is the `avatar` file
-    // req.body will hold the text fields, if there were any
+    res.writeHead(200, {'content-type':'application/json'});
+    var op = {
+        'Name':req.file.originalname,
+        'Size':req.file.size
+    };
+    res.end(JSON.stringify(op));
   })
 };
